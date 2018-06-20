@@ -58,6 +58,9 @@ public class GPSLocationManager {
         criteria.setCostAllowed(true);
         criteria.setPowerRequirement(Criteria.POWER_LOW);
         mLocationTypeNoGps = locationManager.getBestProvider(criteria, true);
+        if (mLocationTypeNoGps == null){
+            mLocationTypeNoGps = LocationManager.NETWORK_PROVIDER;
+        }
     }
 
     public static GPSLocationManager getInstances(Context context) {
