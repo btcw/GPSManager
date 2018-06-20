@@ -9,7 +9,8 @@ import android.widget.Button;
 import view.SDKTestActivity;
 
 /**
- * @author Dev.Zhou
+ * 测试页面
+ * @author btcw
  * @date 2018/6/12
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{

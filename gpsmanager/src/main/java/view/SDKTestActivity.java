@@ -17,6 +17,12 @@ import static top.iwill.gpsmanager.GPSProviderStatus.GPS_DISABLED;
 import static top.iwill.gpsmanager.GPSProviderStatus.GPS_ENABLED;
 import static top.iwill.gpsmanager.GPSProviderStatus.GPS_OUT_OF_SERVICE;
 
+/**
+ * 测试页面
+ * @author btcw
+ * @date 2018/6/20
+ */
+
 public class SDKTestActivity extends AppCompatActivity implements View.OnClickListener, GPSLocationListener {
 
     private TextView mLogText;
