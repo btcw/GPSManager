@@ -8,7 +8,7 @@ An open source library based on Android GPS native code.
 #### 引入
 maven
 ````Java
-    compile 'cn.make1.gpsmanager:gpsmanager:unspecified'
+    compile 'top.iwill.gpsmanager:gpsmanager:1.0.0'
 ````
 #### 使用
 ````Java
