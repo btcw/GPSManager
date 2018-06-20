@@ -11,6 +11,20 @@ maven
     compile 'top.iwill.gpsmanager:gpsmanager:1.0.0'
 ````
 #### 使用
+权限
+````Java
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+````
+动态获取
+````Java
+    ActivityCompat.requestPermissions(activity
+                ,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}
+                ,requestCode);
+````
+
+正文
 ````Java
         //获取实例
         mGpsManager = GPSLocationManager.getInstances(this);
