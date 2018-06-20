@@ -39,7 +39,7 @@ dependencies {
 }
 
 def siteUrl = 'https://github.com/btcw/GPSManager'      // 项目的主页(可以写自己的库的GitHub地址)
-def gitUrl = 'https://github.com/btcw/GPSManager'      // Git仓库的url  这个是说明，可随便填
+def gitUrl = 'https://github.com/btcw/GPSManager.git'      // vcs
 group = "top.iwill.gpsmanager"  // （**慎重填写**）这里是groupId ,必须填写  一般填你唯一的包名，对应com.squareup.okhttp3:okhttp:3.4.1中的com.squareup.okhttp3部分
 
 install {
