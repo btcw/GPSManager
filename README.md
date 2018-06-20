@@ -1,9 +1,6 @@
 # GPSManager
 An open source library based on Android GPS native code.
-
-
-# GpsLocationManager
-### 本项目是基于安卓系统GPS的封装
+本项目是基于安卓系统GPS的封装
     
     如果没有GPS定位就会自动调用网络定位，所以一般是一定能定到位的。
     [github](https://github.com/btcw/GpsLocationManager)
