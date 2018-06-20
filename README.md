@@ -17,7 +17,7 @@ maven
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 ````
-动态获取
+动态获取GPS权限
 ````Java
     ActivityCompat.requestPermissions(activity
                 ,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}
