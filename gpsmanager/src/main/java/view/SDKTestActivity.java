@@ -58,9 +58,11 @@ public class SDKTestActivity extends AppCompatActivity implements View.OnClickLi
 
 
     private void initData() {
-        mGpsManager = GPSLocationManager.getInstances(this);
-        mGpsManager.setScanSpan(6000);
-        mGpsManager.setMinDistance(0);
+        mGpsManager = new GPSLocationManager.Builder(this)
+                .setMinDistance(0)
+                //间隔6s
+                .setMinTime(6000)
+                .build();
     }
 
 
@@ -95,6 +97,8 @@ public class SDKTestActivity extends AppCompatActivity implements View.OnClickLi
         log("onUpdateGpsProviderStatus,provider:" + gpsStatus);
         switch (gpsStatus) {
             case GPS_DISABLED:
+                //用户手动关闭GPS
+                break;
             case GPS_OUT_OF_SERVICE:
                 mGpsManager.switchLocationType(false);
                 break;

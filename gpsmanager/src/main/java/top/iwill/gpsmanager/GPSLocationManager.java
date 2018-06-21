@@ -1,13 +1,10 @@
 package top.iwill.gpsmanager;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
 
 import java.lang.ref.WeakReference;
 
@@ -47,15 +44,15 @@ public class GPSLocationManager {
         //默认不强制打开GPS设置面板
         isOPenGps = false;
         //默认定位时间间隔为6s
-        mMinTime = 0;
+        mMinTime = 6000;
         //默认位置可更新的最短距离为0m
         mMinDistance = 0;
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(true);
-        criteria.setCostAllowed(true);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(false);
         criteria.setPowerRequirement(Criteria.POWER_LOW);
         mLocationTypeNoGps = locationManager.getBestProvider(criteria, true);
         if (mLocationTypeNoGps == null){
@@ -63,7 +60,7 @@ public class GPSLocationManager {
         }
     }
 
-    public static GPSLocationManager getInstances(Context context) {
+    private static GPSLocationManager getInstances(Context context) {
         if (gpsLocationManager == null) {
             synchronized (objLock) {
                 if (gpsLocationManager == null) {
@@ -72,6 +69,40 @@ public class GPSLocationManager {
             }
         }
         return gpsLocationManager;
+    }
+
+    public static class Builder{
+
+        GPSLocationManager gpsLocationManager;
+
+        public Builder(Context context) {
+            gpsLocationManager = GPSLocationManager.getInstances(context);
+        }
+
+        /**
+         * 设置最小更新时间
+         * @param millions 时间（单位ms）
+         * @return builder
+         */
+        public Builder setMinTime(long millions){
+            gpsLocationManager.mMinTime = millions;
+            return this;
+        }
+
+        /**
+         * 设置最小更新距离
+         * @param minDistance 最短距离（单位m）
+         * @return builder
+         */
+        public Builder setMinDistance(float minDistance){
+            gpsLocationManager.mMinDistance = minDistance;
+            return this;
+        }
+
+        public GPSLocationManager build(){
+            return this.gpsLocationManager;
+        }
+
     }
 
     @SuppressLint("MissingPermission")
@@ -83,24 +114,6 @@ public class GPSLocationManager {
             locationManager.requestLocationUpdates(mLocateType, mMinTime, mMinDistance, mGPSLocation);
         }
 
-    }
-
-    /**
-     * 方法描述：设置发起定位请求的间隔时长
-     *
-     * @param minTime 定位间隔时长（单位ms）
-     */
-    public void setScanSpan(long minTime) {
-        this.mMinTime = minTime;
-    }
-
-    /**
-     * 方法描述：设置位置更新的最短距离
-     *
-     * @param minDistance 最短距离（单位m）
-     */
-    public void setMinDistance(float minDistance) {
-        this.mMinDistance = minDistance;
     }
 
     /**
@@ -140,12 +153,6 @@ public class GPSLocationManager {
         isGpsEnabled = locationManager.isProviderEnabled(GPS_LOCATION_NAME);
         if (!isGpsEnabled && isOPenGps) {
             openGPS();
-            return;
-        }
-        if (ActivityCompat.checkSelfPermission(mContext.get(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (mContext.get(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         Location lastKnownLocation = locationManager.getLastKnownLocation(mLocateType);
