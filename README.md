@@ -2,8 +2,8 @@
 An open source library based on Android GPS native code.
 本项目是基于安卓系统GPS的封装
     
-    如果没有GPS定位就会自动调用网络定位，所以一般是一定能定到位的。
-    [github](https://github.com/btcw/GpsLocationManager)
+如果没有GPS定位就会自动调用网络定位，所以一般是一定能定到位的。
+[github](https://github.com/btcw/GpsLocationManager)
     
 #### 引入
 maven
@@ -26,12 +26,12 @@ maven
 
 正文
 ````Java
-        //获取实例
-        mGpsManager = GPSLocationManager.getInstances(this);
-        //设置发起定位请求的间隔时长 10s
-        mGpsManager.setScanSpan(10*1000);
-        //设置位置更新的最短距离(10m)
-        mGpsManager.setMinDistance(10);
+          mGpsManager = new GPSLocationManager.Builder(this)
+                //最小更新距离
+                .setMinDistance(0)
+                //间隔6s
+                .setMinTime(6000)
+                .build();
         
         
         mGpsManager.start(new GPSLocationListener() {
@@ -79,4 +79,32 @@ maven
      */
     public static final int GPS_AVAILABLE = 4;
 
+````
+
+#### 切换定位模式
+````Java
+    //true为GPS，false为网络定位
+    mGpsManager.switchLocationType(true);
+````
+
+#### 处理回调样例
+````Java
+
+    @Override
+    public void onUpdateGpsProviderStatus(int gpsStatus) {
+        log("onUpdateGpsProviderStatus,provider:" + gpsStatus);
+        switch (gpsStatus) {
+            case GPS_DISABLED:
+                //用户手动关闭GPS
+                break;
+            case GPS_OUT_OF_SERVICE:
+                mGpsManager.switchLocationType(false);
+                break;
+            case GPS_ENABLED:
+            case GPS_AVAILABLE:
+                mGpsManager.switchLocationType(true);
+                break;
+            default:
+        }
+    }
 ````
