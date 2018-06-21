@@ -10,21 +10,20 @@ maven
 ````Java
     compile 'top.iwill.gpsmanager:gpsmanager:1.0.0'
 ````
-#### 使用
-权限
+#### 权限
 ````Java
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 ````
-动态获取GPS权限
+#### 动态获取GPS权限
 ````Java
     ActivityCompat.requestPermissions(activity
                 ,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}
                 ,requestCode);
 ````
 
-正文
+#### 使用
 ````Java
           mGpsManager = new GPSLocationManager.Builder(this)
                 //最小更新距离
